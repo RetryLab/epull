@@ -1,0 +1,18 @@
+#!/bin/bash
+
+ORI=$1
+TARGET=$2
+NAME=$(echo "$ORI" | sed -r 's/[\/]+/_/g')
+echo "container name: $NAME"
+if [ "$ORI" == "" -o "$TARGET" == "" ]; then
+	echo "invalid!    start ORI  TARGET"
+	exit 1
+fi
+
+nohup docker run  --rm \
+  --name "$NAME" \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/lib/docker:/var/lib/docker \
+  -e ORI_URI="$ORI"  \
+  -e TARGET_URI="$TARGET"  \
+  epull-registry.yunpro.cn/library/epull-worker >> /tmp/epullworker.log &
