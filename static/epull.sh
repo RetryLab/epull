@@ -35,6 +35,7 @@ pull_retag(){
 	echo -e "${OK} Finish! Have a nice day :)"
 }
 
+init
 ORI=$1
 if [ "$ORI" = "" ]; then
 	echo -e "${NOTICE} No image is specified"
